@@ -63,8 +63,12 @@ function TableInit() {
                 field: 'id',
                 title: '序号',
                 align: 'center',
-                formatter: function (value, row, index) {
-                    return index + 1;
+                formatter:function(value,row,index){
+                    //return index+1; //序号正序排序从1开始
+                    var pageSize=$('#userTable').bootstrapTable('getOptions').pageSize;//通过表的#id 得到每页多少条
+                    var pageNumber=$('#userTable').bootstrapTable('getOptions').pageNumber;//通过表的#id得到当前第几页
+                    return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号
+                    //     return index+1;
                 }
             },
                 {
@@ -94,7 +98,7 @@ function TableInit() {
                     formatter: addFunctionAlty//表格中增加按钮
                 }],
             responseHandler: function (res) {
-                //console.log(res);
+                // console.log(res.data);
                 if(res.code == "666"){
                     var userInfo = res.data.list;
                     // var userInfo=JSON.parse('[{"password":"1","startTime":"2022-05-12T10:09:28","id":"1","endTime":"2022-05-12T10:09:30","username":"aa","status":"1"},{"password":"123","startTime":"2022-05-12T12:10:37","id":"290e08f3ea154e33ad56a18171642db1","endTime":"2022-06-11T12:10:37","username":"aaa","status":"1"},{"password":"1","startTime":"2018-10-24T09:49:00","id":"8ceeee2995f3459ba1955f85245dc7a5","endTime":"2025-11-24T09:49:00","username":"admin","status":"1"},{"password":"aa","startTime":"2022-05-16T12:01:54","id":"a6f15c3be07f42e5965bec199f7ebbe6","endTime":"2022-06-15T12:01:54","username":"aaaaa","status":"1"}]');
@@ -121,10 +125,10 @@ function TableInit() {
                         //console.log(NewData)
                     }
                     var data = {
-                        total: 4,
+                        total: res.data.total,
                         rows: NewData
                     };
-
+                    // console.log(NewData.length);
                     return data;
                 }
 

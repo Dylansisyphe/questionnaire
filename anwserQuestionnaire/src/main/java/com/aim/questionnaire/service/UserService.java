@@ -17,6 +17,7 @@ import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.ws.Action;
 import java.util.*;
 
@@ -45,19 +46,29 @@ public class UserService {
             return null;
         }
 //        System.out.println(map);
-        Integer pageSize = (Integer) map.get("pageSize");
         Integer pageNum = (Integer) map.get("pageNum");
-//        统计总记录数
-//        Integer total = user
-        PageHelper.startPage(pageNum,pageSize);
+        Integer pageSize = (Integer) map.get("pageSize");
         final HashMap<String ,Object> userNameMap = new HashMap<>();
         userNameMap.put("username",map.get("userName"));
+        System.out.println(userNameMap);
+        PageHelper.startPage(pageNum,pageSize);
 //        userNameMap.put("username","admin");
-        final Page<Object> page = PageHelper.startPage(pageNum,pageSize);
         final List<Map<String ,Object>> users = userEntityMapper.queryUserList(userNameMap);
+        Long total = null;
+        if(users instanceof  Page){
+            Page page = (Page)users;
+            total = page.getTotal();
+        }
         final PageInfo<Map<String ,Object>> usersPageInfo = new PageInfo<>(users);
+        usersPageInfo.setTotal(total);
+//        usersPageInfo.set
+//        System.out.println("查询条目总数量：" + total);
         return usersPageInfo;
     }
+
+//    public Integer getTotal
+
+
 
     /**
      * 创建用户的基本信息

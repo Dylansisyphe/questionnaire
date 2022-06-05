@@ -44,7 +44,7 @@ public class EnDecryptUtil {
 //      System.out.println("AES 加密 ： " + encryptBitAES(arr1, "arr1"));
 //      System.out.println("AES 解密 ： " + decryptBitAES(encryptBitAES(arr1, "arr1"), "arr1"));
         String password = EnDecryptUtil.encodeBASE64(EnDecryptUtil.d3esEncode("111111"));
-        System.out.println(password);
+//        System.out.println(password);
 
     }
 

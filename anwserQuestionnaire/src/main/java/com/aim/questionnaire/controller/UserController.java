@@ -79,9 +79,6 @@ public class UserController {
         final PageInfo pageInfo = userService.queryUserList(map);
         //注意可能返回的pageInfo为空
         if(pageInfo != null){
-//            查询总条目数
-
-//            查询总页数
             httpResponseEntity.setCode(Constans.SUCCESS_CODE);
             httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
             httpResponseEntity.setData(pageInfo);
@@ -90,6 +87,7 @@ public class UserController {
             httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
             httpResponseEntity.setData(null);
         }
+//        System.out.println(pageInfo);
         return httpResponseEntity;
     }
     /**

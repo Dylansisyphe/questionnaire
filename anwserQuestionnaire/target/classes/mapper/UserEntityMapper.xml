@@ -59,14 +59,13 @@
     WHERE username = #{username,jdbcType=VARCHAR} AND `password` = #{password,jdbcType=VARCHAR} AND status = "1"
   </select>
    <!--查询用户列表（模糊搜索）-->
-  <select id="queryUserList" parameterType="map" resultType="java.util.Map">
+  <select id="queryUserList" parameterType="Map" resultType="java.util.Map">
     select id, username, `password`, start_time as  startTime, stop_time as endTime
     FROM  user_info
     <where>
-      <if test="map != null and map.username != null">
-        username =#{map.username}
-      </if>
+        username LIKE CONCAT(CONCAT('%', #{username}), '%')
     </where>
+    ORDER BY start_time DESC
   </select>
   <!--根据用户名查找用户信息-->
   <select id="selectAllByName" parameterType="java.lang.String" resultType="com.aim.questionnaire.dao.entity.UserEntity">

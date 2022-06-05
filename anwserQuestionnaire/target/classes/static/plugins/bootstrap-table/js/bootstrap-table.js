@@ -381,6 +381,9 @@
         uniqueId: undefined,
         cardView: false,
         detailView: false,
+
+
+
         detailFormatter: function (index, row) {
             return '';
         },
@@ -2724,6 +2727,10 @@
     BootstrapTable.prototype.initHiddenRows = function () {
         this.hiddenRows = [];
     };
+    //自定义方法，更新索引的显示
+    BootstrapTable.prototype.getIndex = function (param) {
+        return this.options.pageSize * this.options.pageNumber + 1;
+    }
 
     BootstrapTable.prototype.showRow = function (params) {
         this.toggleRow(params, true);
@@ -3210,7 +3217,7 @@
 
     var allowedMethods = [
         'getOptions',
-        'getSelections', 'getAllSelections', 'getData',
+        'getSelections', 'getAllSelections', 'getData','getIndex',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',

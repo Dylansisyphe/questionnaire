@@ -21,7 +21,7 @@ pagehelper:
   helperDalect: mysql
   reasonable: true
   supportMethodsArguments: true
-  params: conut=countSql
+  params: count=countSql
 
 commonDS:
   # 配置初始化大小、最小、最大
